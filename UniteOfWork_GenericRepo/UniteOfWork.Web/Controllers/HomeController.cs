@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UniteOfWork.Data.Infrastracture;
+using UniteOfWork.Data.Models;
 using UniteOfWork.Data.Repository;
+using UniteOfWork.Web.ViewModels;
 
 namespace UniteOfWork.Web.Controllers
 {
@@ -21,11 +23,23 @@ namespace UniteOfWork.Web.Controllers
         }
 
 
-        //[HttpPost]
-        //public ActionResult Index()
-        //{
+        [HttpPost]
+        public ActionResult Index(EmployeeVM em)
+        {
+            if(ModelState.IsValid)
+            {
+                Employee newEmployee = new Employee()
+                {
+                    Name = em.Name,
+                    Address = em.Address,
+                    Age = em.Age
+                };
+                _repo.Add(newEmployee);
 
-        //}
+               
+            }
+            return View();
+        }
 
         public ActionResult About()
         {
